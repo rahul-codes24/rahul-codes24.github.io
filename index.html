@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rahul Gavas - Developer Portfolio</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="A state-of-the-art interactive developer portfolio featuring a custom canvas particle mesh background, an interactive developer CLI console, and custom glassmorphism styling built with ASP.NET Core." />
+    <meta name="keywords" content="Developer Portfolio, ASP.NET Core, Full Stack Developer, Data Science, AI Engineer, C#, Web Design" />
+    <meta name="author" content="Creative Developer" />
+    
+    <!-- Google Fonts: Outfit & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom Layout Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css"  />
+</head>
+<body class="dark-theme">
+    <!-- Glowing Cursor Trail Element -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Interactive Particle Canvas Background -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Glowing blob layers -->
+    <div class="glow-blob blob-1"></div>
+    <div class="glow-blob blob-2"></div>
+    <div class="glow-blob blob-3"></div>
+
+    <!-- Navigation Header -->
+    <header class="navbar" id="home">
+        <div class="nav-container">
+            <a href="#home" class="logo" id="logo-link" style="display: flex; align-items: center; padding: 4px 0;">
+                <img src="images/logo.jpg" alt="Rahul Gavas Logo" style="height: 38px; width: auto; border-radius: 4px; border: 1px solid var(--glass-border);">
+            </a>
+            
+            <nav class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#timeline" class="nav-link">Timeline</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="#contact" class="btn btn-primary nav-btn">Let's Connect</a>
+
+                <!-- Mobile toggle buttons -->
+                <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Toggle menu">
+                    <svg class="icon menu-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                    <svg class="icon menu-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Slide Overlay Menu -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+        <div class="mobile-nav-panel">
+            <nav class="mobile-menu">
+                <a href="#home" class="mobile-link">Home</a>
+                <a href="#about" class="mobile-link">About Me</a>
+                <a href="#timeline" class="mobile-link">Timeline</a>
+                <a href="#projects" class="mobile-link">My Projects</a>
+                <a href="#contact" class="mobile-link">Contact Me</a>
+            </nav>
+            <div class="mobile-menu-footer">
+                <a href="#contact" class="btn btn-primary w-100">Get In Touch</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Render Page Body -->
+    <!-- Hero Section (Centered Layout matching Chaitanya's Portfolio) -->
+<section class="section hero-section-centered">
+    <div class="container hero-centered-container">
+        <div class="hero-content-centered scroll-reveal">
+            <div class="badge-container">
+                <span class="badge"><span class="badge-dot"></span>Open to Opportunities</span>
+            </div>
+            
+            <div class="hero-profile-wrapper" style="margin-top: 24px;">
+                <img src="images/profile.jpg" alt="Rahul Gavas Profile" style="width: 140px; height: 140px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.1); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); object-cover: cover;">
+            </div>
+            
+            <h1 class="hero-title-large" style="margin-top: 16px;">Rahul Gavas</h1>
+            
+            <h2 class="hero-subtitle-typewriter">
+                I'm a <span class="gradient-text typewriter" id="typewriter">.NET Developer.</span>
+            </h2>
+            
+            <p class="hero-desc-centered">
+                Aspiring .NET Developer with practical experience building full-stack web applications. Skilled across the development lifecycle, from database design to front-end implementation.
+            </p>
+            
+            <div class="hero-centered-actions">
+                <a href="#projects" class="btn btn-primary btn-work-gradient">View My Work</a>
+            </div>
+
+            <!-- Social Row Structure matching Chaitanya's Layout -->
+            <div class="hero-social-row">
+                <a href="https://github.com/rahul-codes24" target="_blank" class="hero-social-circle" aria-label="GitHub Profile">
+                    <span class="social-tooltip">GitHub</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/rahul-gavas-ab30173b8/" target="_blank" class="hero-social-circle" aria-label="LinkedIn Profile">
+                    <span class="social-tooltip">LinkedIn</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                </a>
+                <a href="mailto:rahulgavas03@gmail.com" class="hero-social-circle" aria-label="Email Message">
+                    <span class="social-tooltip">Gmail</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Scroll indicator down arrow -->
+            <div class="scroll-down-arrow-container">
+                <a href="#about" class="scroll-down-arrow-indicator" aria-label="Scroll to About section">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Me Section -->
+<section class="section about-section" id="about">
+    <div class="container">
+        <div class="section-header scroll-reveal">
+            <span class="section-tag">Biography</span>
+            <h2 class="section-title">About Me</h2>
+            <div class="title-underline"></div>
+        </div>
+
+        <div class="about-grid">
+            <!-- Left Side: Anime Coder Portrait Image -->
+            <div class="about-graphic scroll-reveal">
+                <div class="about-image-wrapper">
+                    <img src="images/about_me.jpg" alt="Rahul Gavas Coder Illustration" class="about-developer-image">
+                </div>
+            </div>
+
+            <!-- Right Side: Biography and Core Details -->
+            <div class="about-info scroll-reveal">
+                <p class="about-desc">
+                    I am an aspiring .NET Developer with practical experience building full-stack web applications. I have a strong foundation in object-oriented programming (OOP), relational database management, and MVC architecture.
+                </p>
+                <p class="about-desc">
+                    I am skilled across the development lifecycle, from constructing clean schemas in SQL Server and MySQL, to building functional controllers and business logic in ASP.NET Core, and structuring responsive frontend views.
+                </p>
+
+                <div class="info-list">
+                    <div class="info-item">
+                        <span class="info-title">Primary Focus:</span>
+                        <span class="info-value">C# / ASP.NET / EF Core</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-title">Location:</span>
+                        <span class="info-value">Pune, Maharashtra, India</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-title">Languages:</span>
+                        <span class="info-value">English, Hindi, Marathi</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills Meter Grid -->
+        <div class="skills-section-container">
+            <div class="section-subheader scroll-reveal">
+                <h3>Core Technical Stacks</h3>
+                <div class="subheader-underline"></div>
+            </div>
+
+            <div class="skills-wrapper">
+                <div class="skills-column scroll-reveal">
+                    <h4>Languages & Frameworks</h4>
+                    <div class="skill-meter-item">
+                        <div class="skill-info">
+                            <span class="skill-name">C# / OOP Principles</span>
+                            <span class="skill-percent">90%</span>
+                        </div>
+                        <div class="skill-track">
+                            <div class="skill-fill progress-purple" data-width="90%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-meter-item">
+                        <div class="skill-info">
+                            <span class="skill-name">ASP.NET Core MVC</span>
+                            <span class="skill-percent">85%</span>
+                        </div>
+                        <div class="skill-track">
+                            <div class="skill-fill progress-cyan" data-width="85%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-meter-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Entity Framework Core</span>
+                            <span class="skill-percent">80%</span>
+                        </div>
+                        <div class="skill-track">
+                            <div class="skill-fill progress-purple" data-width="80%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-meter-item">
+                        <div class="skill-info">
+                            <span class="skill-name">ASP.NET Core Web API</span>
+                            <span class="skill-percent">85%</span>
+                        </div>
+                        <div class="skill-track">
+                            <div class="skill-fill progress-cyan" data-width="85%"></div>
+                        </div>
+                    </div>
+
+                    </div>
+
+                <div class="skills-column scroll-reveal">
+                    <h4>Databases & Web Technologies</h4>
+                    <div class="skill-meter-item">
+                        <div class="skill-info">
+                            <span class="skill-name">SQL Server / MySQL</span>
+                            <span class="skill-percent">85%</span>
+                        </div>
+                        <div class="skill-track">
+                            <div class="skill-fill progress-cyan" data-width="85%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-meter-item">
+                        <div class="skill-info">
+                            <span class="skill-name">HTML5 / CSS3 / JavaScript</span>
+                            <span class="skill-percent">80%</span>
+                        </div>
+                        <div class="skill-track">
+                            <div class="skill-fill progress-purple" data-width="80%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-meter-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Git & GitHub</span>
+                            <span class="skill-percent">85%</span>
+                        </div>
+                        <div class="skill-track">
+                            <div class="skill-fill progress-cyan" data-width="85%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-meter-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Visual Studio</span>
+                            <span class="skill-percent">85%</span>
+                        </div>
+                        <div class="skill-track">
+                            <div class="skill-fill progress-purple" data-width="85%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skills-badges-container scroll-reveal">
+                <span class="skill-badge-card">C#</span>
+                <span class="skill-badge-card">ASP.NET Core MVC</span>
+                <span class="skill-badge-card">Entity Framework</span>
+                <span class="skill-badge-card">SQL Server</span>
+                <span class="skill-badge-card">MySQL</span>
+                <span class="skill-badge-card">ASP.NET Core Web API</span>
+                <span class="skill-badge-card">HTML5 / CSS3</span>
+                <span class="skill-badge-card">Git & GitHub</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Experience & Education Timeline Section -->
+<section class="section timeline-section" id="timeline">
+    <div class="container">
+        <div class="section-header scroll-reveal">
+            <span class="section-tag">Milestones</span>
+            <h2 class="section-title">Experience & Education</h2>
+            <div class="title-underline"></div>
+        </div>
+
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+
+            <!-- Timeline Item 1 - Work Experience -->
+            <div class="timeline-item timeline-left scroll-reveal">
+                <div class="timeline-marker">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                </div>
+                <div class="timeline-card card-hover-effect">
+                    <div class="timeline-header-card">
+                        <span class="timeline-badge badge-exp">Experience</span>
+                        <span class="timeline-date">Jan 2026 - Jun 2026</span>
+                    </div>
+                    <h3>.NET Developer Intern</h3>
+                    <h4>Montcrest Software Pvt. Ltd., Pune</h4>
+                    <p class="timeline-desc">
+                        Developed web application modules using ASP.NET Core MVC, working extensively with controllers, models, and razor views. Built CRUD actions using Entity Framework Core connected to SQL Server for data persistence. Designed dynamic, responsive web pages and structured clean SQL queries.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Timeline Item 2 - Education (MCA) -->
+            <div class="timeline-item timeline-right scroll-reveal">
+                <div class="timeline-marker">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                        <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+                    </svg>
+                </div>
+                <div class="timeline-card card-hover-effect">
+                    <div class="timeline-header-card">
+                        <span class="timeline-badge badge-edu">Education</span>
+                        <span class="timeline-date">Graduated 2026</span>
+                    </div>
+                    <h3>Master of Computer Applications (MCA)</h3>
+                    <h4>KIT’s Institute Of Management Education And Research, Kolhapur</h4>
+                    <p class="timeline-desc">
+                        Comprehensive study of advanced software architecture, systems engineering, databases, and programming frameworks. <br><strong>CGPA: 8.52/10</strong>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Timeline Item 3 - Education (B.Sc) -->
+            <div class="timeline-item timeline-left scroll-reveal">
+                <div class="timeline-marker">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                        <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+                    </svg>
+                </div>
+                <div class="timeline-card card-hover-effect">
+                    <div class="timeline-header-card">
+                        <span class="timeline-badge badge-edu">Education</span>
+                        <span class="timeline-date">Graduated 2024</span>
+                    </div>
+                    <h3>B.Sc. Computer Science</h3>
+                    <h4>R.B. Madkholkar Mahavidyalaya, Chandgad</h4>
+                    <p class="timeline-desc">
+                        Core academic foundation in data structures, algorithms, object-oriented concepts, and relational databases. <br><strong>CGPA: 8.36/10</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section class="section projects-section" id="projects">
+    <div class="container">
+        <div class="section-header scroll-reveal">
+            <span class="section-tag">Portfolio</span>
+            <h2 class="section-title">My Projects</h2>
+            <div class="title-underline"></div>
+        </div>
+
+        <div class="portfolio-filters scroll-reveal">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="dotnet">ASP.NET / C#</button>
+            <button class="filter-btn" data-filter="php">PHP / MySQL</button>
+        </div>
+
+        <div class="portfolio-grid" id="portfolioGrid">
+            <!-- Project Card 1: CricZone -->
+            <div class="portfolio-card card-hover-effect scroll-reveal" data-category="dotnet">
+                <div class="project-img-wrapper">
+                    <img src="images/criczone_mockup.jpg" alt="CricZone - Ultimate Cricket Hub" class="project-card-image">
+                </div>
+                <div class="project-details">
+                    <div class="project-tags">
+                        <span>C#</span>
+                        <span>ASP.NET Core MVC</span>
+                        <span>Entity Framework</span>
+                        <span>SQL Server</span>
+                    </div>
+                    <h3>CricZone - Ultimate Cricket Hub</h3>
+                    <p>Developed a web-based cricket management system to manage tournaments, match schedules, teams, and active player details. Integrated SQL Server database and used Entity Framework Core repositories.</p>
+                    <div class="project-actions">
+                        <a href="https://github.com/rahul-codes24/CricZone-Cricket-Tournament-System" target="_blank" class="project-link">
+                            GitHub
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            </svg>
+                        </a>
+                        <button type="button" class="btn-read-more" data-project="criczone">
+                            Read More
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-info-icon">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Card 2: Kolhapuri Footwear -->
+            <div class="portfolio-card card-hover-effect scroll-reveal" data-category="php">
+                <div class="project-img-wrapper">
+                    <img src="images/kolhapuri_mockup.jpg" alt="Kolhapuri Footwear Online Shopping" class="project-card-image">
+                </div>
+                <div class="project-details">
+                    <div class="project-tags">
+                        <span>PHP</span>
+                        <span>MySQL</span>
+                        <span>HTML5</span>
+                        <span>CSS3</span>
+                    </div>
+                    <h3>Kolhapuri Footwear Online Shopping</h3>
+                    <p>Engineered a responsive e-commerce web platform showcasing traditional footwear. Built secure user authentication systems and managed structured shopping tables using a MySQL database.</p>
+                    <div class="project-actions">
+                        <a href="https://github.com/rahul-codes24/Kolhapuri-Footwear" target="_blank" class="project-link">
+                            GitHub
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            </svg>
+                        </a>
+                        <button type="button" class="btn-read-more" data-project="kolhapuri">
+                            Read More
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-info-icon">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Card 3: Online Voting System -->
+            <div class="portfolio-card card-hover-effect scroll-reveal" data-category="dotnet">
+                <div class="project-img-wrapper">
+                    <img src="images/onlinevoting_mockup.jpg" alt="Online Voting System" class="project-card-image">
+                </div>
+                <div class="project-details">
+                    <div class="project-tags">
+                        <span>C#</span>
+                        <span>ASP.NET Core MVC</span>
+                        <span>SQL Server</span>
+                        <span>Entity Framework</span>
+                    </div>
+                    <h3>Online Voting System</h3>
+                    <p>Designed a secure and modern web application for managing elections and voting. Features administrator panels for candidate whitelisting, election trackers, and double-voting prevention.</p>
+                    <div class="project-actions">
+                        <a href="https://github.com/rahul-codes24/OnlineVoting" target="_blank" class="project-link">
+                            GitHub
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            </svg>
+                        </a>
+                        <button type="button" class="btn-read-more" data-project="onlinevoting">
+                            Read More
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-info-icon">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Interactive Contact Form Section (Centered Layout matching Rohan's) -->
+<section class="section contact-section" id="contact">
+    <div class="container contact-container-centered scroll-reveal">
+        <div class="contact-header-centered">
+            <span class="section-tag">Connect with me</span>
+            <h2 class="contact-title-centered">Get in touch</h2>
+            <p class="contact-subtitle-centered max-w-2xl mx-auto">I'd love to hear from you! If you have any questions, comments or feedback, please use the form below.</p>
+        </div>
+
+        <div class="contact-form-panel-centered">
+            <form id="contactForm" class="contact-form">
+                <!-- Paste your Web3Forms Access Key here -->
+                <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE">
+                <!-- Native C# Anti-Forgery Token -->
+                
+                
+                <div class="form-row-grid">
+                    <div class="form-group">
+                        <label for="formName">Your Name</label>
+                        <input type="text" id="formName" name="Name" required placeholder="Enter your Name" pattern="^[a-zA-Z\s]+$" title="Name must contain only letters and spaces" oninvalid="this.setCustomValidity('Please enter only alphabetic characters.')" oninput="this.setCustomValidity('')">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="formEmail">Your Email</label>
+                        <input type="email" id="formEmail" name="Email" required placeholder="Enter your Email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Please enter a valid email address" oninvalid="this.setCustomValidity('Please enter a valid email address.')" oninput="this.setCustomValidity('')">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="formMessage">Message</label>
+                    <textarea id="formMessage" name="Message" rows="6" required placeholder="Enter your message"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-submit-centered" id="submitBtn">
+                    <span class="btn-text">Submit now</span>
+                    <svg class="btn-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+                <div class="form-status" id="formStatus"></div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Form Submission Success Modal -->
+<div class="success-modal-overlay" id="successModal">
+    <div class="success-modal-card">
+        <div class="success-modal-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+        </div>
+        <h3 class="success-modal-title">Form submitted successfully!</h3>
+        <p class="success-modal-desc">Thank you for reaching out to us.<br>I will review your submission and get back to you soon.</p>
+        <button type="button" class="btn-modal-close" id="closeModalBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-back-icon">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Go Back
+        </button>
+    </div>
+</div>
+
+<!-- Project Details Dynamic Modal -->
+<div class="project-modal-overlay" id="projectModal">
+    <div class="project-modal-card">
+        <button type="button" class="project-modal-close" id="closeProjectModalBtn" aria-label="Close modal">&times;</button>
+        <div class="project-modal-content" id="projectModalContent">
+            <!-- Dynamic project info loaded via JavaScript -->
+        </div>
+    </div>
+</div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <p>&copy; 2026 Rahul Gavas. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#home">Back to Top</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Core Script -->
+    <script src="js/script.js" ></script>
+    
+</body>
+</html>
