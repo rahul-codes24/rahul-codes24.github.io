@@ -374,10 +374,10 @@ document.addEventListener('DOMContentLoaded', () => {
         contactForm.addEventListener('submit', async (event) => {
             event.preventDefault();
             
-            // Double-layer frontend validation to catch and block invalid email formats
+            // Clean trimmed validation
             const emailInput = document.getElementById('formEmail');
-            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-            if (emailInput && !emailRegex.test(emailInput.value)) {
+            const cleanEmail = emailInput ? emailInput.value.trim() : '';
+            if (!cleanEmail || !cleanEmail.includes('@') || !cleanEmail.includes('.')) {
                 formStatus.className = 'form-status error';
                 formStatus.textContent = 'Please enter a valid email address.';
                 return;
@@ -391,9 +391,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Build form data
             const formData = new FormData(contactForm);
             const accessKey = formData.get('access_key') || 'fe5573af-d680-428b-ac2e-c5b1fc838632';
-            const name = formData.get('name') || formData.get('Name') || '';
-            const email = formData.get('email') || formData.get('Email') || '';
-            const message = formData.get('message') || formData.get('Message') || '';
+            const name = (formData.get('name') || formData.get('Name') || 'Visitor').toString().trim();
+            const email = cleanEmail;
+            const message = (formData.get('message') || formData.get('Message') || '').toString().trim();
             
             try {
                 const response = await fetch('https://api.web3forms.com/submit', {
@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         email: email,
                         message: message,
                         from_name: 'Portfolio Website',
-                        subject: `New Portfolio Message from ${name || 'Visitor'}`
+                        subject: `New Portfolio Message from ${name}`
                     })
                 });
                 
@@ -429,7 +429,7 @@ document.addEventListener('DOMContentLoaded', () => {
             catch (err) {
                 console.error('Contact form submission error:', err);
                 formStatus.className = 'form-status error';
-                formStatus.textContent = `Could not send message automatically. Please reach out directly at rahulgavas03@gmail.com`;
+                formStatus.textContent = `Submission note: ${err.message || 'Please check connection'}`;
             }
             finally {
                 submitBtn.disabled = false;
