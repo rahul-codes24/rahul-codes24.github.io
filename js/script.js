@@ -390,66 +390,46 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Build form data
             const formData = new FormData(contactForm);
-            const accessKey = formData.get('access_key');
-            const name = formData.get('Name') || '';
-            const email = formData.get('Email') || '';
-            const message = formData.get('Message') || '';
+            const accessKey = formData.get('access_key') || 'fe5573af-d680-428b-ac2e-c5b1fc838632';
+            const name = formData.get('name') || formData.get('Name') || '';
+            const email = formData.get('email') || formData.get('Email') || '';
+            const message = formData.get('message') || formData.get('Message') || '';
             
             try {
-                // If Web3Forms key is configured, post to Web3Forms API
-                if (accessKey && accessKey !== 'YOUR_WEB3FORMS_ACCESS_KEY_HERE') {
-                    const response = await fetch('https://api.web3forms.com/submit', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            access_key: accessKey,
-                            name: name,
-                            email: email,
-                            message: message,
-                            subject: `Portfolio Contact from ${name}`
-                        })
-                    });
-                    
-                    const result = await response.json();
-                    
-                    if (result.success) {
-                        contactForm.reset();
-                        if (successModal) {
-                            successModal.classList.add('active');
-                        } else {
-                            formStatus.className = 'form-status success';
-                            formStatus.textContent = 'Thank you! Your message was sent successfully.';
-                        }
-                    } else {
-                        throw new Error(result.message || 'Submission failed');
-                    }
-                } else {
-                    // Graceful direct-mail fallback: opens Gmail/mail client with prefilled message
-                    window.location.href = `mailto:rahulgavas03@gmail.com?subject=Portfolio%20Inquiry%20from%20${encodeURIComponent(name)}&body=${encodeURIComponent(message)}%0A%0AFrom:%20${encodeURIComponent(name)}%20(${encodeURIComponent(email)})`;
-                    
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        access_key: accessKey,
+                        name: name,
+                        email: email,
+                        message: message,
+                        from_name: 'Portfolio Website',
+                        subject: `New Portfolio Message from ${name || 'Visitor'}`
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
                     contactForm.reset();
                     if (successModal) {
                         successModal.classList.add('active');
                     } else {
                         formStatus.className = 'form-status success';
-                        formStatus.textContent = 'Message drafted! Opening your email client to send.';
+                        formStatus.textContent = 'Thank you! Your message was sent successfully.';
                     }
+                } else {
+                    throw new Error(result.message || 'Submission failed');
                 }
             }
             catch (err) {
-                // If fetch fails, provide mailto fallback
-                window.location.href = `mailto:rahulgavas03@gmail.com?subject=Portfolio%20Inquiry%20from%20${encodeURIComponent(name)}&body=${encodeURIComponent(message)}%0A%0AFrom:%20${encodeURIComponent(name)}%20(${encodeURIComponent(email)})`;
-                
-                contactForm.reset();
-                if (successModal) {
-                    successModal.classList.add('active');
-                } else {
-                    formStatus.className = 'form-status success';
-                    formStatus.textContent = 'Opening your email client to send message.';
-                }
+                console.error('Contact form submission error:', err);
+                formStatus.className = 'form-status error';
+                formStatus.textContent = `Could not send message automatically. Please reach out directly at rahulgavas03@gmail.com`;
             }
             finally {
                 submitBtn.disabled = false;
